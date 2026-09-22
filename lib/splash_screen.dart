@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_finance_app/constant.dart';
+import 'package:flutter_finance_app/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -45,6 +48,26 @@ class _SplashScreenState extends State<SplashScreen>
         );
 
     _controller.forward();
+
+    Timer(Duration(seconds: 2), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondAnimation) {
+              return OnboardingScreen();
+            },
+            transitionsBuilder: (
+              context,
+              animation,
+              secondaryAnimation,
+              child,
+            ) => FadeTransition(opacity: animation, child: child),
+            transitionDuration: const Duration(milliseconds: 800)
+          ),
+        );
+      }
+    });
 
     super.initState();
   }
@@ -158,17 +181,17 @@ class _SplashScreenState extends State<SplashScreen>
             left: 0,
             right: 0,
             child: Center(
-              child: Center(
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: SizedBox(
-                    width: 40,
-                    height: 2,
-                    child: LinearProgressIndicator(
-                      backgroundColor: AppColors.indicatorActive.withValues(
-                        alpha: 0.3,
-                      ),
-                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.indicatorActive),
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: SizedBox(
+                  width: 40,
+                  height: 2,
+                  child: LinearProgressIndicator(
+                    backgroundColor: AppColors.indicatorActive.withValues(
+                      alpha: 0.3,
+                    ),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColors.indicatorActive,
                     ),
                   ),
                 ),
