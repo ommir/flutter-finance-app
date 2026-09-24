@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_finance_app/constant.dart';
+import 'package:flutter_finance_app/dashboard_screen.dart';
 import 'package:flutter_finance_app/login_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -96,7 +97,15 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
 
                   const SizedBox(height: 24),
-                  MyPrimaryButton(title: "Verify", onPressed: () {},)
+                  MyPrimaryButton(
+                    title: "Verify",
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DashboardScreen(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
