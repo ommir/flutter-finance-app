@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_finance_app/constant.dart';
 import 'package:flutter_finance_app/home/model/payment_item_model.dart';
 import 'package:flutter_finance_app/home/model/transaction_item.dart';
+import 'package:flutter_finance_app/notification/notification_screen.dart';
+import 'package:flutter_finance_app/transaction/transaction_screen.dart';
+import 'package:flutter_finance_app/transfer/transfer_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -312,6 +315,13 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) {
             final item = items[index];
             return GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      TransactionScreen(category: item.title, categoryIcon: item.icon),
+                ),
+              ),
               child: Column(
                 children: [
                   Container(
@@ -341,7 +351,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _quickIcon(Icons.account_balance_wallet, () => {}),
+        _quickIcon(
+          Icons.account_balance_wallet,
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TransferScreen()),
+          ),
+        ),
         _quickIcon(Icons.swap_horiz, () => {}),
         _quickIcon(Icons.credit_card, () => {}),
         _quickIcon(Icons.savings, () => {}),
@@ -393,7 +409,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Row(
           children: [
-            GestureDetector(child: _circleIcon(Icons.notifications_none)),
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationScreen()),
+              ),
+              child: _circleIcon(Icons.notifications_none),
+            ),
             SizedBox(width: 10),
             GestureDetector(child: _circleIcon(Icons.fingerprint)),
           ],
